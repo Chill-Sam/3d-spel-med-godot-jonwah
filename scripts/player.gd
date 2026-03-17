@@ -58,9 +58,9 @@ func _ready() -> void:
 		func():
 			health = clamp(health + passive_regen, 0, max_health)
 	)
-	
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	arm_camera.global_transform = camera.global_transform
 
 
@@ -102,7 +102,6 @@ func _set_crouch(crouch: bool, delta: float) -> void:
 
 	standing_collision.disabled = crouch
 	crouching_collison.disabled = not crouch
-	var offset: float = (standing_collision.shape.height - crouching_collison.shape.height) * 0.5
 
 	if is_crouching and is_on_floor():
 		velocity.y = -20.0
@@ -171,8 +170,8 @@ func _physics_process(delta: float) -> void:
 
 	is_wallrunning = (right_wall_cast.is_colliding() or left_wall_cast.is_colliding()) and (velocity.x ** 2 + velocity.z ** 2) > 4.0
 	if not is_on_floor():
-		var scale = 0.1 if is_wallrunning and velocity.y < 0 else 1 
-		velocity += get_gravity() * delta * scale
+		var gravity_scale = 0.1 if is_wallrunning and velocity.y < 0 else 1.0 
+		velocity += get_gravity() * delta * gravity_scale
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_SPEED
@@ -250,8 +249,8 @@ func _physics_process(delta: float) -> void:
 	_set_fov_smooth(90 + 20 * velocity.length() / RUN_SPEED)
 
 
-func damage(damage: float):
-	health -= damage
+func damage(dmg: float):
+	health -= dmg
 	if health <= 0:
 		die()
 
