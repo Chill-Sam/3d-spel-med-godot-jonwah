@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cxpvjrsshkigb"]
+
+[ext_resource type="Script" uid="uid://bntv0lp784mbm" path="res://scripts/hitting_enemy.gd" id="1_k8ayi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3te8"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6tyd5"]
+radius = 0.4
+height = 1.8
+
+[node name="HittingEnemy" type="CharacterBody3D" unique_id=622151178]
+script = ExtResource("1_k8ayi")
+health = 50.0
+max_health = 50.0
+speed = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1159878999]
+shape = SubResource("CapsuleShape3D_i3te8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=522082152]
+mesh = SubResource("CapsuleMesh_6tyd5")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1175701763]
