@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b18wa1kg8pg7"]
+
+[ext_resource type="PackedScene" uid="uid://bdkbxh8jlo1h6" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dmw7626vojp0t" path="res://scenes/map.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cxpvjrsshkigb" path="res://scenes/hitting_enemy.tscn" id="6_tefeu"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_tefeu"]
+vertices = PackedVector3Array(-49.5, 0.35030222, -8.773464, -12.75, 0.35030222, -8.523464, -12.75, 0.35030222, -10.023464, -11, 0.35030222, -10.273464, -11.25, 0.35030222, -49.523464, -49.5, 0.35030222, -49.523464, -8.25, 0.35030222, -10.273464, -8, 0.35030222, -49.523464, -6.5, 0.35030222, -10.023464, -6.5, 0.35030222, -4.523464, -1.75, 0.35030222, -4.023464, 1.75, 0.35030222, -4.023464, 2, 0.35030222, -3.5234642, 49.5, 0.35030222, -3.5234642, 49.5, 0.35030222, -49.523464, -11.75, 6.600302, -9.273464, -11.75, 6.600302, -5.023464, -7.5, 6.600302, -5.023464, -7.5, 6.600302, -9.273464, -49.5, 0.35030222, -5.523464, -12.75, 0.35030222, -5.773464, -12.25, 0.35030222, 0.2265358, -10.75, 0.35030222, 0.2265358, -10.75, 0.35030222, -4.023464, -12.5, 0.35030222, -4.023464, -49.5, 0.35030222, -0.023464203, -2, 0.35030222, -3.0234642, -6.5, 0.35030222, 0.7265358, -1.5, 0.35030222, -2.7734642, -6.75, 0.35030222, -4.023464, -6.75, 0.35030222, 0.2265358, 1.75, 0.35030222, -2.7734642, 0.25, 0.35030222, -2.7734642, 0.5, 0.35030222, 8.976536, 3, 0.35030222, 8.976536, 3.25, 0.35030222, 10.726536, 49.5, 0.35030222, 10.476536, -10.5, 0.35030222, 6.476536, -10.5, 0.35030222, 8.976536, -6.75, 0.35030222, 8.976536, -6.5, 0.35030222, 6.226536, -3, 0.35030222, 9.226536, -6.5, 0.35030222, 12.976536, -3, 0.35030222, 12.976536, -12.75, 0.35030222, 9.226536, -12.75, 0.35030222, 6.226536, -49.5, 0.35030222, 15.476536, -12.25, 0.35030222, 15.226536, -12.75, 0.35030222, 14.976536, -12.75, 0.35030222, 0.4765358, -11.75, 5.100302, 1.2265358, -11.75, 5.100302, 5.476536, -7.5, 5.100302, 5.476536, -7.5, 5.100302, 1.2265358, -11.5, 0.35030222, 1.4765358, -11.5, 0.35030222, 5.226536, -7.75, 0.35030222, 5.226536, -7.75, 0.35030222, 1.4765358, -11.75, 3.8503022, 9.976536, -11.75, 3.8503022, 14.226536, -7.5, 3.8503022, 14.226536, -7.5, 3.8503022, 9.976536, -2, 2.1003022, 9.976536, -2, 2.1003022, 14.226536, 2, 2.1003022, 14.226536, 2, 2.1003022, 9.976536, -11.5, 0.35030222, 10.226536, -11.5, 0.35030222, 13.976536, -7.75, 0.35030222, 13.976536, -7.75, 0.35030222, 10.226536, -1.75, 0.35030222, 10.226536, -1.75, 0.35030222, 13.976536, 2, 0.35030222, 13.976536, 2, 0.35030222, 10.226536, 3.25, 0.35030222, 13.476536, 49.5, 0.35030222, 13.726536, -3, 0.35030222, 14.976536, -6.5, 0.35030222, 14.976536, -1.25, 0.35030222, 15.226536, -8.25, 0.35030222, 15.226536, -8, 0.35030222, 49.476536, -1.5, 0.35030222, 49.476536, 3, 0.35030222, 15.226536, 1.5, 0.35030222, 15.226536, 1.75, 0.35030222, 49.476536, 49.5, 0.35030222, 49.476536, -11.25, 0.35030222, 49.476536, -11, 0.35030222, 15.226536, -49.5, 0.35030222, 49.476536)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(3, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(10, 8, 11), PackedInt32Array(11, 8, 7), PackedInt32Array(8, 6, 7), PackedInt32Array(11, 7, 12), PackedInt32Array(12, 7, 13), PackedInt32Array(13, 7, 14), PackedInt32Array(18, 17, 15), PackedInt32Array(15, 17, 16), PackedInt32Array(20, 19, 1), PackedInt32Array(1, 19, 0), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(24, 21, 20), PackedInt32Array(20, 21, 19), PackedInt32Array(19, 21, 25), PackedInt32Array(9, 10, 26), PackedInt32Array(30, 29, 27), PackedInt32Array(27, 29, 9), PackedInt32Array(27, 9, 26), PackedInt32Array(27, 26, 28), PackedInt32Array(29, 30, 23), PackedInt32Array(23, 30, 22), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(31, 12, 34), PackedInt32Array(34, 12, 35), PackedInt32Array(35, 12, 36), PackedInt32Array(36, 12, 13), PackedInt32Array(38, 37, 39), PackedInt32Array(39, 37, 40), PackedInt32Array(40, 41, 39), PackedInt32Array(39, 41, 42), PackedInt32Array(42, 41, 43), PackedInt32Array(28, 32, 27), PackedInt32Array(27, 32, 40), PackedInt32Array(40, 32, 41), PackedInt32Array(41, 32, 33), PackedInt32Array(38, 44, 37), PackedInt32Array(37, 44, 45), PackedInt32Array(44, 46, 45), PackedInt32Array(45, 46, 25), PackedInt32Array(46, 48, 47), PackedInt32Array(25, 21, 49), PackedInt32Array(44, 48, 46), PackedInt32Array(25, 49, 45), PackedInt32Array(53, 52, 50), PackedInt32Array(50, 52, 51), PackedInt32Array(57, 56, 54), PackedInt32Array(54, 56, 55), PackedInt32Array(61, 60, 58), PackedInt32Array(58, 60, 59), PackedInt32Array(65, 64, 62), PackedInt32Array(62, 64, 63), PackedInt32Array(69, 68, 66), PackedInt32Array(66, 68, 67), PackedInt32Array(73, 72, 70), PackedInt32Array(70, 72, 71), PackedInt32Array(35, 36, 74), PackedInt32Array(74, 36, 75), PackedInt32Array(77, 42, 76), PackedInt32Array(76, 42, 43), PackedInt32Array(76, 78, 77), PackedInt32Array(77, 78, 79), PackedInt32Array(79, 78, 81), PackedInt32Array(79, 81, 80), PackedInt32Array(84, 83, 82), PackedInt32Array(82, 74, 84), PackedInt32Array(84, 74, 75), PackedInt32Array(84, 75, 85), PackedInt32Array(87, 86, 47), PackedInt32Array(47, 86, 46), PackedInt32Array(46, 86, 88), PackedInt32Array(87, 79, 86), PackedInt32Array(86, 79, 80), PackedInt32Array(78, 83, 81), PackedInt32Array(81, 83, 84)]
+
+[node name="Main" type="Node3D" unique_id=1771159707]
+
+[node name="Player" parent="." unique_id=1476040653 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0371476, 0)
+collision_layer = 2
+collision_mask = 15
+
+[node name="Skeleton3D" parent="Player/GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1476040653, 1198011592, 84867146) index="0" unique_id=2067680333]
+bones/2/position = Vector3(0, 41.91582, 0)
+bones/2/rotation = Quaternion(-0.002196336, 0.00033376642, -1.2271353e-06, 0.9999976)
+bones/7/rotation = Quaternion(-0.27684948, 0.274202, 0.22065727, 0.89413536)
+bones/29/rotation = Quaternion(0.45493332, 0.8395301, 0.0938523, 0.28180945)
+bones/30/rotation = Quaternion(0.3124593, 0.21701674, 0.22205514, 0.89775527)
+bones/31/rotation = Quaternion(-0.03632444, -0.19712472, -0.5163802, 0.83257073)
+
+[node name="HittingEnemy" parent="." unique_id=622151178 instance=ExtResource("6_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0194035, -7.626026)
+collision_layer = 4
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1535471986]
+navigation_mesh = SubResource("NavigationMesh_tefeu")
+
+[node name="Map" parent="NavigationRegion3D" unique_id=2052675867 instance=ExtResource("3_sugp2")]
+
+[editable path="Player"]
+[editable path="Player/GunViewport/SubViewport/Camera3D/arms"]
