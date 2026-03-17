@@ -16,12 +16,12 @@ collision_layer = 2
 collision_mask = 15
 
 [node name="Skeleton3D" parent="Player/GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1476040653, 1198011592, 84867146) index="0" unique_id=2067680333]
-bones/2/position = Vector3(0, 41.91582, 0)
-bones/2/rotation = Quaternion(-0.002196336, 0.00033376642, -1.2271353e-06, 0.9999976)
-bones/7/rotation = Quaternion(-0.27684948, 0.274202, 0.22065727, 0.89413536)
-bones/29/rotation = Quaternion(0.45493332, 0.8395301, 0.0938523, 0.28180945)
-bones/30/rotation = Quaternion(0.3124593, 0.21701674, 0.22205514, 0.89775527)
-bones/31/rotation = Quaternion(-0.03632444, -0.19712472, -0.5163802, 0.83257073)
+bones/2/position = Vector3(0, 42.50625, 0)
+bones/2/rotation = Quaternion(0.00087362994, -0.0002997396, -1.3809246e-07, 0.9999996)
+bones/7/rotation = Quaternion(-0.27592373, 0.27444348, 0.22078028, 0.8943171)
+bones/29/rotation = Quaternion(0.45487997, 0.8394929, 0.09397946, 0.28196406)
+bones/30/rotation = Quaternion(0.31255707, 0.21709152, 0.22204925, 0.8977046)
+bones/31/rotation = Quaternion(-0.035506707, -0.19559526, -0.5151548, 0.8337251)
 
 [node name="HittingEnemy" parent="." unique_id=622151178 instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0194035, -7.626026)

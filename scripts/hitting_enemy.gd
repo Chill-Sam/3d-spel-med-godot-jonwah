@@ -13,15 +13,15 @@ func _physics_process(delta: float) -> void:
 
 	nav_agent.target_position = player.global_position
 
-	if nav_agent.is_navigation_finished():
-		return
-
 	var distance = global_position.distance_to(player.global_position)
 
 	if distance <= attack_range:
 		try_attack()
 	else:
 		move_towards_player()
+		
+	if nav_agent.is_navigation_finished():
+		return
 
 	super(delta)
 
