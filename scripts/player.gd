@@ -1,0 +1,221 @@
+class_name Player
+extends CharacterBody3D
+
+@onready var camera = $Camera3D
+@onready var arm_camera = $GunViewport/SubViewport/Camera3D
+@onready var standing_collision = $StandingCollision
+@onready var crouching_collison = $CrouchingCollision
+@onready var mesh = $Body
+@onready var shadow = $Shadow
+@onready var roof_raycast_1 = $RoofRaycast1
+@onready var roof_raycast_2 = $RoofRaycast2
+@onready var roof_raycast_3 = $RoofRaycast3
+@onready var roof_raycast_4 = $RoofRaycast4
+@onready var gun_anim_tree = $GunAnimations
+@onready var gun_sm = gun_anim_tree.get("parameters/playback")
+@onready var gun = $Camera3D/Pivot/Gun
+@onready var health_bar: TextureProgressBar = $UI/Health/HealthProgress
+
+@export var sensitivity = 0.003
+@export var fire_rate: float = 0.75
+
+const CROUCH_SPEED := 2.0
+const WALK_SPEED := 5.0
+const RUN_SPEED := 7.5
+const AIR_SPEED := 7.5
+const JUMP_SPEED := 5.0
+const ACCEL := 15.0
+const DECEL := 45.0
+const SLIDE_ACCEL := 5.0
+const SLIDE_DECEL := 2.5
+const AIR_ACCEL := 10.0
+const AIR_DECEL := 5.0
+
+var health = 100.0
+var max_health = 100.0
+var passive_regen = 2.5
+
+var fov_tween: Tween
+var camera_rotation = Vector2(0, 0)
+var is_crouching := false
+var cur_speed := WALK_SPEED
+var _can_fire: bool = true
+var is_dead: bool = false
+
+
+func _ready() -> void:
+	health_bar.max_value = max_health
+	health_bar.value = health
+	add_to_group("player")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$RegenTimer.timeout.connect(
+		func():
+			health = clamp(health + passive_regen, 0, max_health)
+	)
+	
+
+func _process(delta: float) -> void:
+	arm_camera.global_transform = camera.global_transform
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	if event is InputEventMouseMotion:
+		var mouseEvent = event.relative * sensitivity
+		_camera_look(mouseEvent)
+
+
+func _camera_look(Movement: Vector2):
+	camera_rotation += Movement
+	camera_rotation.y = clamp(camera_rotation.y, -1.5, 1.2)
+
+	transform.basis = Basis()
+	camera.transform.basis = Basis()
+
+	rotate_object_local(Vector3(0, 1, 0), -camera_rotation.x)
+	camera.rotate_object_local(Vector3(1, 0, 0), -camera_rotation.y)
+
+
+func _set_crouch(crouch: bool, delta: float) -> void:
+	if is_crouching == crouch:
+		return
+
+	if (
+		is_crouching and (
+			roof_raycast_1.is_colliding() or
+			roof_raycast_2.is_colliding() or
+			roof_raycast_3.is_colliding() or
+			roof_raycast_4.is_colliding()
+		)
+	):
+		return
+
+	is_crouching = crouch
+
+	standing_collision.disabled = crouch
+	crouching_collison.disabled = not crouch
+	var offset: float = (standing_collision.shape.height - crouching_collison.shape.height) * 0.5
+
+	if is_crouching and is_on_floor():
+		velocity.y = -20.0
+
+	var target_y := 0.0 if crouch else 0.8
+	camera.position.y = lerp(camera.position.y, target_y, 12.0 * delta)
+
+
+func _set_fov_smooth(new_fov: float, duration: float = 0.25) -> void:
+
+	if fov_tween and fov_tween.is_running():
+		fov_tween.kill()
+
+	fov_tween = create_tween()
+	fov_tween.tween_property(camera, "fov", new_fov, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+func _animate() -> void:
+	var speed := velocity.length()
+	var t = clamp(speed / RUN_SPEED, 0.0, 1.0)
+	gun_anim_tree.set("parameters/Locomotion/blend_position", t)
+
+	if !is_on_floor() and (
+		gun_sm.get_current_node() != "Jump" and gun_sm.get_current_node() != "Shoot"
+	):
+		gun_sm.travel("Jump")
+
+	if is_on_floor() and gun_sm.get_current_node() != "Locomotion":
+		gun_sm.travel("Locomotion")
+
+
+func _shoot() -> void:
+	if not _can_fire:
+		return
+
+	_can_fire = false
+
+	gun.use()
+
+	if gun_sm.get_current_node() == "Shoot":
+		gun_sm.start("Shoot")
+	else:
+		gun_sm.travel("Shoot")
+
+	await get_tree().create_timer(fire_rate).timeout
+	_can_fire = true
+
+
+func _physics_process(delta: float) -> void:
+	if is_dead:
+		print("DEAD")
+
+	health_bar.value = health
+
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_SPEED
+		gun_sm.travel("Jump")
+
+	if Input.is_action_just_pressed("shoot"):
+		_shoot()
+
+	if Input.is_action_pressed("crouch"):
+		_set_crouch(true, delta)
+		mesh.scale.y = 0.8 / 1.8
+		shadow.scale.y = 0.8 / 1.8
+	else:
+		_set_crouch(false, delta)
+		mesh.scale.y = 1.0
+		shadow.scale.y = 1.0
+
+	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var wish_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	cur_speed = (
+
+		AIR_SPEED if not is_on_floor() else
+		CROUCH_SPEED if is_crouching else
+		RUN_SPEED if Input.is_action_pressed("sprint") else
+		WALK_SPEED
+
+	)
+
+	var target_hvel := wish_dir * cur_speed
+
+	var hvel := Vector3(velocity.x, 0.0, velocity.z)
+
+	var accel := (
+		SLIDE_ACCEL if is_crouching and hvel.length() >= 3.0 else
+		ACCEL if is_on_floor() else
+		AIR_ACCEL
+	)
+	var decel := (
+		SLIDE_DECEL if is_crouching and hvel.length() >= 3.0 else
+		DECEL if is_on_floor() else
+		AIR_DECEL
+	)
+
+	if wish_dir != Vector3.ZERO:
+		hvel = hvel.move_toward(target_hvel, accel * delta)
+	else:
+		hvel = hvel.move_toward(Vector3.ZERO, decel * delta)
+
+	velocity.x = hvel.x
+	velocity.z = hvel.z
+
+	move_and_slide()
+
+	_animate()
+	_set_fov_smooth(90 + 20 * velocity.length() / RUN_SPEED)
+
+
+func damage(damage: float):
+	health -= damage
+	if health <= 0:
+		die()
+
+
+func die():
+	is_dead = true
