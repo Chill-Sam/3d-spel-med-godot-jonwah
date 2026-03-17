@@ -162,12 +162,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.2)
 cull_mask = 16
 fov = 80.0
 
-[node name="arms" parent="GunViewport/SubViewport/Camera3D" unique_id=1198011592 instance=ExtResource("3_3li8b")]
+[node name="arms" parent="GunViewport/SubViewport/Camera3D" unique_id=1015417000 instance=ExtResource("3_3li8b")]
 transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, -0.95359933, -0.24123235)
 
-[node name="Skeleton3D" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1198011592, 326233524) index="0" unique_id=1365001894]
-bones/2/position = Vector3(0, 42.355194, 0)
-bones/2/rotation = Quaternion(-0.0020669615, -0.00015064383, 4.446086e-07, 0.99999785)
+[node name="Skeleton3D" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1015417000, 84867146) index="0" unique_id=2067680333]
+bones/2/position = Vector3(0, 42.514442, 0)
+bones/2/rotation = Quaternion(0.0008238242, -0.0003052293, 1.8320492e-08, 0.99999964)
 bones/3/position = Vector3(-5.3837624, 10.53426, -23.17756)
 bones/4/position = Vector3(-1.1679231, -4.6649017, 9.04451)
 bones/4/rotation = Quaternion(0.49450448, -0.36244652, 0.015600835, 0.78984463)
@@ -176,7 +176,7 @@ bones/5/rotation = Quaternion(0.5947109, -0.01762837, -0.025370197, 0.80334586)
 bones/6/position = Vector3(0.59173584, -0.2296964, 12.104864)
 bones/6/rotation = Quaternion(-8.5759766e-08, -1.0322008e-07, 0.316477, 0.94860023)
 bones/7/position = Vector3(1.0559883, -0.40991417, 21.601927)
-bones/7/rotation = Quaternion(-0.27694154, 0.27419528, 0.22098039, 0.89402914)
+bones/7/rotation = Quaternion(-0.2759608, 0.27443433, 0.22078627, 0.89430696)
 bones/8/position = Vector3(-3.5479813, -2.8784409, 4.185297)
 bones/8/rotation = Quaternion(-0.40407315, 0.058549184, 0.8322425, -0.37505928)
 bones/9/position = Vector3(0.9061404, 0.91158277, 2.0526886)
@@ -217,11 +217,11 @@ bones/27/position = Vector3(-1.9311524e-07, -1.9583782, -5.787592)
 bones/27/rotation = Quaternion(-0.3681245, -7.87263e-08, -4.712994e-08, 0.92977655)
 bones/28/position = Vector3(11.804248, -2.401557, -3.5082173)
 bones/29/position = Vector3(1.1678697, -4.664907, 9.044466)
-bones/29/rotation = Quaternion(0.4547829, 0.83943194, 0.09420703, 0.28222603)
+bones/29/rotation = Quaternion(0.4548721, 0.839488, 0.09399771, 0.28198504)
 bones/30/position = Vector3(0.09671984, -0.2065239, 19.460072)
-bones/30/rotation = Quaternion(0.31283036, 0.21729827, 0.22203222, 0.8975635)
+bones/30/rotation = Quaternion(0.31257892, 0.21710815, 0.2220479, 0.89769334)
 bones/31/position = Vector3(-1.0558591, -0.40982026, 21.601927)
-bones/31/rotation = Quaternion(-0.035971124, -0.19686766, -0.5164588, 0.83259803)
+bones/31/rotation = Quaternion(-0.03550683, -0.19562636, -0.51520145, 0.83368886)
 bones/32/position = Vector3(2.8748093, -2.177885, 4.4606705)
 bones/32/rotation = Quaternion(0.40364924, 0.12210118, 0.7938487, 0.43813574)
 bones/33/position = Vector3(-0.9061642, 0.91157573, 2.052715)
@@ -257,29 +257,35 @@ bones/46/scale = Vector3(1.0000024, 0.99999803, 1.0000054)
 bones/47/position = Vector3(-0.5916624, -0.22962944, 12.104872)
 bones/47/rotation = Quaternion(-2.096941e-06, 1.1592352e-06, -0.454937, 0.8905237)
 
-[node name="Object_7" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="0" unique_id=523049595]
+[node name="Object_7" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="0" unique_id=476321056]
 layers = 16
 
-[node name="Object_9" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="1" unique_id=360329513]
+[node name="Object_9" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="1" unique_id=557376577]
 layers = 16
 
-[node name="Object_11" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="2" unique_id=2034883781]
+[node name="Object_11" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="2" unique_id=313857043]
 layers = 16
 
-[node name="Object_13" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="3" unique_id=713110442]
+[node name="Object_13" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="3" unique_id=1639790400]
 layers = 16
 
-[node name="Object_15" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="4" unique_id=120466561]
+[node name="Object_15" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="4" unique_id=1962221062]
 layers = 16
 
-[node name="Object_17" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="5" unique_id=433598576]
+[node name="Object_17" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="5" unique_id=1942940876]
 layers = 16
 
-[node name="Object_19" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="6" unique_id=1159551843]
+[node name="Object_19" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4/Skeleton3D" index="6" unique_id=2124657057]
 layers = 16
 
 [node name="RegenTimer" type="Timer" parent="." unique_id=830423642]
 wait_time = 2.0
 autostart = true
+
+[node name="LeftWallCast" type="RayCast3D" parent="." unique_id=1595545847]
+target_position = Vector3(-0.5, 0, 0)
+
+[node name="RightWallCast" type="RayCast3D" parent="." unique_id=720459045]
+target_position = Vector3(0.5, 0, 0)
 
 [editable path="GunViewport/SubViewport/Camera3D/arms"]

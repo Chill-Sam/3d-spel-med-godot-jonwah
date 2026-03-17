@@ -15,13 +15,15 @@ extends CharacterBody3D
 @onready var gun_sm = gun_anim_tree.get("parameters/playback")
 @onready var gun = $Camera3D/Pivot/Gun
 @onready var health_bar: TextureProgressBar = $UI/Health/HealthProgress
+@onready var right_wall_cast: RayCast3D = $RightWallCast
+@onready var left_wall_cast: RayCast3D = $LeftWallCast
 
 @export var sensitivity = 0.003
 @export var fire_rate: float = 0.75
 
 const CROUCH_SPEED := 2.0
 const WALK_SPEED := 5.0
-const RUN_SPEED := 7.5
+const RUN_SPEED := 8.0
 const AIR_SPEED := 7.5
 const JUMP_SPEED := 5.0
 const ACCEL := 15.0
@@ -30,17 +32,21 @@ const SLIDE_ACCEL := 5.0
 const SLIDE_DECEL := 2.5
 const AIR_ACCEL := 10.0
 const AIR_DECEL := 5.0
+const WALL_PUSH := 6.0
+const WALL_TILT_ANGLE := 0.15  # radians, ~8.5 degrees
 
 var health = 100.0
 var max_health = 100.0
 var passive_regen = 2.5
 
+var current_tilt := 0.0
 var fov_tween: Tween
 var camera_rotation = Vector2(0, 0)
 var is_crouching := false
 var cur_speed := WALK_SPEED
 var _can_fire: bool = true
 var is_dead: bool = false
+var is_wallrunning: bool = false
 
 
 func _ready() -> void:
@@ -113,6 +119,18 @@ func _set_fov_smooth(new_fov: float, duration: float = 0.25) -> void:
 	fov_tween = create_tween()
 	fov_tween.tween_property(camera, "fov", new_fov, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+func _update_wall_tilt(delta: float) -> void:
+	var target_tilt := 0.0
+	
+	if is_wallrunning and not is_on_floor():
+		if right_wall_cast.is_colliding():
+			target_tilt = WALL_TILT_ANGLE
+		elif left_wall_cast.is_colliding():
+			target_tilt = -WALL_TILT_ANGLE
+	
+	current_tilt = lerp(current_tilt, target_tilt, 10.0 * delta)
+	camera.rotation.z = current_tilt
+
 
 func _animate() -> void:
 	var speed := velocity.length()
@@ -121,10 +139,10 @@ func _animate() -> void:
 
 	if !is_on_floor() and (
 		gun_sm.get_current_node() != "Jump" and gun_sm.get_current_node() != "Shoot"
-	):
+	) and not is_wallrunning:
 		gun_sm.travel("Jump")
 
-	if is_on_floor() and gun_sm.get_current_node() != "Locomotion":
+	if (is_on_floor() or is_wallrunning) and gun_sm.get_current_node() != "Locomotion":
 		gun_sm.travel("Locomotion")
 
 
@@ -151,8 +169,10 @@ func _physics_process(delta: float) -> void:
 
 	health_bar.value = health
 
+	is_wallrunning = (right_wall_cast.is_colliding() or left_wall_cast.is_colliding()) and (velocity.x ** 2 + velocity.z ** 2) > 4.0
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		var scale = 0.1 if is_wallrunning and velocity.y < 0 else 1 
+		velocity += get_gravity() * delta * scale
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_SPEED
@@ -174,12 +194,10 @@ func _physics_process(delta: float) -> void:
 	var wish_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	cur_speed = (
-
-		AIR_SPEED if not is_on_floor() else
+		AIR_SPEED if not is_on_floor() and not is_wallrunning else
 		CROUCH_SPEED if is_crouching else
 		RUN_SPEED if Input.is_action_pressed("sprint") else
 		WALK_SPEED
-
 	)
 
 	var target_hvel := wish_dir * cur_speed
@@ -188,12 +206,12 @@ func _physics_process(delta: float) -> void:
 
 	var accel := (
 		SLIDE_ACCEL if is_crouching and hvel.length() >= 3.0 else
-		ACCEL if is_on_floor() else
+		ACCEL if is_on_floor() or is_wallrunning else
 		AIR_ACCEL
 	)
 	var decel := (
 		SLIDE_DECEL if is_crouching and hvel.length() >= 3.0 else
-		DECEL if is_on_floor() else
+		DECEL if is_on_floor() or is_wallrunning else
 		AIR_DECEL
 	)
 
@@ -205,8 +223,29 @@ func _physics_process(delta: float) -> void:
 	velocity.x = hvel.x
 	velocity.z = hvel.z
 
-	move_and_slide()
+	# Zero velocity perpendicular to wall
+	if is_wallrunning and not is_on_floor():
+		for raycast in [left_wall_cast, right_wall_cast]:
+			if raycast.is_colliding():
+				var wall_normal: Vector3 = raycast.get_collision_normal()
+				if Input.is_action_just_pressed("jump"):
+					velocity += wall_normal * WALL_PUSH
+					# Forward along wall (cross with up to get wall-parallel direction)
+					var along_wall: Vector3 = wall_normal.cross(Vector3.UP).normalized()
+			
+					if along_wall.dot(velocity) < 0:
+						along_wall = -along_wall
+			
+					velocity += along_wall * WALL_PUSH * 0.8
+					break
+					
+				# Remove the component of velocity pointing into the wall
+				velocity -= wall_normal * wall_normal.dot(velocity)
+	
 
+	move_and_slide()
+	
+	_update_wall_tilt(delta)
 	_animate()
 	_set_fov_smooth(90 + 20 * velocity.length() / RUN_SPEED)
 
