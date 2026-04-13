@@ -56,11 +56,11 @@ transform = Transform3D(-0.8326508, 0, 0.55379844, 0, 1, 0, -0.55379844, 0, -0.8
 attack_range = 20.0
 
 [node name="ShootingEnemy4" parent="Enemies" unique_id=1525684693 instance=ExtResource("2_wo48x")]
-transform = Transform3D(-0.9985527, 0, 0.053782463, 0, 1, 0, -0.053782463, 0, -0.9985527, -2.1515274, 0.59105897, -48.531273)
+transform = Transform3D(-0.9985527, 0, 0.053782463, 0, 1, 0, -0.053782463, 0, -0.9985527, -2.1515274, 1.0974593, -48.531273)
 attack_range = 20.0
 
 [node name="ShootingEnemy5" parent="Enemies" unique_id=1081328755 instance=ExtResource("2_wo48x")]
-transform = Transform3D(-0.9985527, 0, 0.053782463, 0, 1, 0, -0.053782463, 0, -0.9985527, 1.9030628, 0.59105897, -48.531273)
+transform = Transform3D(-0.9985527, 0, 0.053782463, 0, 1, 0, -0.053782463, 0, -0.9985527, 1.9030628, 1.0974593, -48.531273)
 attack_range = 20.0
 
 [node name="FinishButton" parent="." unique_id=1856646251 instance=ExtResource("2_b4j7a")]
