@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://d25mv4xeradxb"]
+
+[ext_resource type="Script" uid="uid://oitwpc1hfe8f" path="res://scripts/level_complete.gd" id="1_hhoem"]
+
+[node name="LevelComplete" type="Control" unique_id=251157814]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hhoem")
+
+[node name="Dimmer" type="ColorRect" parent="." unique_id=2005613961]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1478558400]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1616823130]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=53034531]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "TRIAL COMPLETED"
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=622140479]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer" unique_id=1686640389]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=4663692]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="NextButton" type="Button" parent="CenterContainer/VBoxContainer/MarginContainer2" unique_id=796890294]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Next Trial
+"
+
+[node name="MarginContainer3" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=218221688]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/MarginContainer3" unique_id=848419710]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Quit to Menu"

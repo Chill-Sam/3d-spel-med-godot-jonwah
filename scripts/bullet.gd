@@ -13,9 +13,10 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var collider = collision.get_collider()
-		var enemy = collider as Enemy
-		if enemy:
-			enemy.damage(damage)
+		if collider.has_method("damage"):
+			collider.damage(damage)
+		elif collider.has_method("_break"):
+			collider._break(global_position);
 		else:
 			spawn_decal(collision)
 		queue_free()

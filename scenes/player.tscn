@@ -4,14 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://b00qotg6my61u" path="res://scenes/gun.tscn" id="2_mdl7e"]
 [ext_resource type="PackedScene" uid="uid://6autbcgiixrd" path="res://scenes/ui.tscn" id="2_v6fml"]
 [ext_resource type="PackedScene" uid="uid://dkcyw5kp0oh3g" path="res://assets/weapons/gun/scene.gltf" id="3_3li8b"]
+[ext_resource type="PackedScene" uid="uid://rs187dioieip" path="res://scenes/pause_menu.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://d4bh0bf5ne3ek" path="res://scenes/death_screen.tscn" id="6_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://d25mv4xeradxb" path="res://scenes/level_complete.tscn" id="7_fjrip"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_p0vlq"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
+radius = 0.35
 height = 1.8
-radius = 0.35
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_v6fml"]
-height = 0.8
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlg0r"]
 radius = 0.35
+height = 0.8
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p0vlq"]
 radius = 0.4
@@ -79,15 +82,15 @@ transitions = ["Start", "Locomotion", SubResource("AnimationNodeStateMachineTran
 graph_offset = Vector2(63, -160)
 
 [node name="Player" type="CharacterBody3D" unique_id=1476040653]
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_v6fml")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="." unique_id=1332680282]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0040163994, 0.01196301, -0.0015099049)
-shape = SubResource("CylinderShape3D_p0vlq")
+shape = SubResource("CapsuleShape3D_dqkch")
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=2041757210]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0040163994, 0.01196301, -0.0015099049)
-shape = SubResource("CylinderShape3D_v6fml")
+shape = SubResource("CapsuleShape3D_qlg0r")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1390781058]
 layers = 2
@@ -99,7 +102,7 @@ cast_shadow = 3
 mesh = SubResource("CapsuleMesh_p0vlq")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1787162924]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4071625, -0.2)
 cull_mask = 1048557
 current = true
 fov = 80.0
@@ -114,24 +117,27 @@ transform = Transform3D(0.9020737, 0.431582, 0, -0.431582, 0.9020737, 0, 0, 0, 1
 target_position = Vector3(0, 0, -1000)
 collision_mask = 5
 
+[node name="Interact" type="RayCast3D" parent="Camera3D" unique_id=1698165674]
+target_position = Vector3(0, 0, -2)
+
 [node name="RoofRaycast1" type="RayCast3D" parent="." unique_id=264344602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0.3)
-target_position = Vector3(0, 1, 0)
+target_position = Vector3(0, 1.1, 0)
 collision_mask = 13
 
 [node name="RoofRaycast2" type="RayCast3D" parent="." unique_id=1419686960]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.3)
-target_position = Vector3(0, 1, 0)
+target_position = Vector3(0, 1.1, 0)
 collision_mask = 13
 
 [node name="RoofRaycast3" type="RayCast3D" parent="." unique_id=2104045725]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.3)
-target_position = Vector3(0, 1, 0)
+target_position = Vector3(0, 1.1, 0)
 collision_mask = 13
 
 [node name="RoofRaycast4" type="RayCast3D" parent="." unique_id=925355188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, -0.3)
-target_position = Vector3(0, 1, 0)
+target_position = Vector3(0, 1.1, 0)
 collision_mask = 13
 
 [node name="UI" parent="." unique_id=1819833617 instance=ExtResource("2_v6fml")]
@@ -148,6 +154,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GunViewport" unique_id=637186758]
@@ -166,8 +173,8 @@ fov = 80.0
 transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, -0.95359933, -0.24123235)
 
 [node name="Skeleton3D" parent="GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1015417000, 84867146) index="0" unique_id=2067680333]
-bones/2/position = Vector3(0, 42.49424, 0)
-bones/2/rotation = Quaternion(0.0009253694, -0.0002883129, -3.2604294e-07, 0.9999995)
+bones/2/position = Vector3(0, 42.36871, 0)
+bones/2/rotation = Quaternion(0.0012489632, -0.00015506557, -6.466021e-07, 0.9999993)
 bones/3/position = Vector3(-5.3837624, 10.53426, -23.17756)
 bones/4/position = Vector3(-1.1679231, -4.6649017, 9.04451)
 bones/4/rotation = Quaternion(0.49450448, -0.36244652, 0.015600835, 0.78984463)
@@ -176,7 +183,7 @@ bones/5/rotation = Quaternion(0.5947109, -0.01762837, -0.025370197, 0.80334586)
 bones/6/position = Vector3(0.59173584, -0.2296964, 12.104864)
 bones/6/rotation = Quaternion(-8.5759766e-08, -1.0322008e-07, 0.316477, 0.94860023)
 bones/7/position = Vector3(1.0559883, -0.40991417, 21.601927)
-bones/7/rotation = Quaternion(-0.27588284, 0.2744535, 0.22077367, 0.89432824)
+bones/7/rotation = Quaternion(-0.27567962, 0.27449924, 0.22063237, 0.89441174)
 bones/8/position = Vector3(-3.5479813, -2.8784409, 4.185297)
 bones/8/rotation = Quaternion(-0.40407315, 0.058549184, 0.8322425, -0.37505928)
 bones/9/position = Vector3(0.9061404, 0.91158277, 2.0526886)
@@ -217,11 +224,11 @@ bones/27/position = Vector3(-1.9311524e-07, -1.9583782, -5.787592)
 bones/27/rotation = Quaternion(-0.3681245, -7.87263e-08, -4.712994e-08, 0.92977655)
 bones/28/position = Vector3(11.804248, -2.401557, -3.5082173)
 bones/29/position = Vector3(1.1678697, -4.664907, 9.044466)
-bones/29/rotation = Quaternion(0.45488855, 0.83949834, 0.09395939, 0.2819409)
+bones/29/rotation = Quaternion(0.45493737, 0.83952886, 0.09384496, 0.28180918)
 bones/30/position = Vector3(0.09671984, -0.2065239, 19.460072)
-bones/30/rotation = Quaternion(0.3125329, 0.2170733, 0.22205079, 0.89771706)
+bones/30/rotation = Quaternion(0.31239548, 0.21696931, 0.22205934, 0.8977879)
 bones/31/position = Vector3(-1.0558591, -0.40982026, 21.601927)
-bones/31/rotation = Quaternion(-0.03550655, -0.19556093, -0.51510316, 0.83376503)
+bones/31/rotation = Quaternion(-0.035505727, -0.19536546, -0.5148092, 0.8339924)
 bones/32/position = Vector3(2.8748093, -2.177885, 4.4606705)
 bones/32/rotation = Quaternion(0.40364924, 0.12210118, 0.7938487, 0.43813574)
 bones/33/position = Vector3(-0.9061642, 0.91157573, 2.052715)
@@ -283,9 +290,23 @@ wait_time = 2.0
 autostart = true
 
 [node name="LeftWallCast" type="RayCast3D" parent="." unique_id=1595545847]
-target_position = Vector3(-0.5, 0, 0)
+target_position = Vector3(-0.4, 0, 0)
 
 [node name="RightWallCast" type="RayCast3D" parent="." unique_id=720459045]
-target_position = Vector3(0.5, 0, 0)
+target_position = Vector3(0.4, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1683680315]
+layer = 10
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1845896242 instance=ExtResource("5_qlg0r")]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=996719934]
+
+[node name="DeathScreen" parent="CanvasLayer2" unique_id=2041159777 instance=ExtResource("6_tuyoq")]
+
+[node name="LevelCompleteCanvasLayer" type="CanvasLayer" parent="." unique_id=205354638]
+layer = 20
+
+[node name="LevelComplete" parent="LevelCompleteCanvasLayer" unique_id=251157814 instance=ExtResource("7_fjrip")]
 
 [editable path="GunViewport/SubViewport/Camera3D/arms"]

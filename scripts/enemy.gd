@@ -14,6 +14,7 @@ var can_attack: bool = true
 func _ready() -> void:
 	nav_agent = $NavigationAgent3D
 	player = get_tree().get_first_node_in_group("player")
+	add_to_group("enemy")
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

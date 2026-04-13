@@ -15,9 +15,19 @@ extends CharacterBody3D
 @onready var gun_sm = gun_anim_tree.get("parameters/playback")
 @onready var gun = $Camera3D/Pivot/Gun
 @onready var health_bar: TextureProgressBar = $UI/Health/HealthProgress
+@onready var stamina_bar: TextureProgressBar = $UI/Health/StaminaProgress
 @onready var right_wall_cast: RayCast3D = $RightWallCast
 @onready var left_wall_cast: RayCast3D = $LeftWallCast
+@onready var pause_menu = $CanvasLayer/PauseMenu
+@onready var death_screen = $CanvasLayer2/DeathScreen
+@onready var interact = $Camera3D/Interact
+@onready var speedrun_timer = $UI/TimerLabel
 
+@export var slow_time_scale:       float = 0.4
+@export var stamina_max:           float = 5.0
+@export var stamina_drain_rate:    float = 1.0
+@export var stamina_regen_rate:    float = 0.4
+@export var stamina_recover_threshold: float = 0.5
 @export var sensitivity = 0.003
 @export var fire_rate: float = 0.75
 
@@ -38,6 +48,9 @@ const WALL_TILT_ANGLE := 0.15  # radians, ~8.5 degrees
 var health = 100.0
 var max_health = 100.0
 var passive_regen = 2.5
+var _stamina:      float = stamina_max
+var _slow_active:  bool  = false
+var _exhausted:   bool  = false
 
 var current_tilt := 0.0
 var fov_tween: Tween
@@ -58,6 +71,8 @@ func _ready() -> void:
 		func():
 			health = clamp(health + passive_regen, 0, max_health)
 	)
+	
+	global_position = get_node("%Spawnpoint").global_position
 
 
 func _process(_delta: float) -> void:
@@ -65,8 +80,12 @@ func _process(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if is_dead:
+		return
+	
 	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		pause_menu._set_paused(true)
+		return  # swallow the event
 
 	if event is InputEventMouseMotion:
 		var mouseEvent = event.relative * sensitivity
@@ -82,7 +101,7 @@ func _camera_look(Movement: Vector2):
 
 	rotate_object_local(Vector3(0, 1, 0), -camera_rotation.x)
 	camera.rotate_object_local(Vector3(1, 0, 0), -camera_rotation.y)
-
+	camera.rotation.z = current_tilt  # re-apply tilt to not cause camera jitter
 
 func _set_crouch(crouch: bool, delta: float) -> void:
 	if is_crouching == crouch:
@@ -105,7 +124,9 @@ func _set_crouch(crouch: bool, delta: float) -> void:
 
 	if is_crouching and is_on_floor():
 		velocity.y = -20.0
-
+	elif !is_crouching and is_on_floor():
+		position.y += 0.2
+		
 	var target_y := 0.0 if crouch else 0.8
 	camera.position.y = lerp(camera.position.y, target_y, 12.0 * delta)
 
@@ -132,13 +153,13 @@ func _update_wall_tilt(delta: float) -> void:
 
 
 func _animate() -> void:
-	var speed := velocity.length()
+	var speed := Vector2(velocity.x, velocity.z).length()
 	var t = clamp(speed / RUN_SPEED, 0.0, 1.0)
 	gun_anim_tree.set("parameters/Locomotion/blend_position", t)
 
 	if !is_on_floor() and (
 		gun_sm.get_current_node() != "Jump" and gun_sm.get_current_node() != "Shoot"
-	) and not is_wallrunning:
+	) and not is_wallrunning and not is_crouching:
 		gun_sm.travel("Jump")
 
 	if (is_on_floor() or is_wallrunning) and gun_sm.get_current_node() != "Locomotion":
@@ -166,7 +187,17 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		print("DEAD")
 
+	if (Input.is_action_pressed("ui_left")  or
+	   Input.is_action_pressed("ui_right") or
+	   Input.is_action_pressed("ui_up")    or
+	   Input.is_action_pressed("ui_down")  or
+	   Input.is_action_just_pressed("jump")):
+		speedrun_timer.start()
+
+	_update_slow_mo(delta)
+
 	health_bar.value = health
+	stamina_bar.value = _stamina
 
 	is_wallrunning = (right_wall_cast.is_colliding() or left_wall_cast.is_colliding()) and (velocity.x ** 2 + velocity.z ** 2) > 4.0
 	if not is_on_floor():
@@ -179,6 +210,13 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("shoot"):
 		_shoot()
+	
+	if Input.is_action_just_pressed("interact"):
+		if (interact.is_colliding()):
+			var obj = interact.get_collider()
+			if (obj.has_method("_interact")):
+				obj._interact()
+			
 
 	if Input.is_action_pressed("crouch"):
 		_set_crouch(true, delta)
@@ -249,6 +287,28 @@ func _physics_process(delta: float) -> void:
 	_set_fov_smooth(90 + 20 * velocity.length() / RUN_SPEED)
 
 
+func _update_slow_mo(delta: float) -> void:
+	# Unscaled delta so stamina always moves in real time.
+	var real_delta: float = delta / Engine.time_scale
+
+	if _stamina <= 0.0:
+		_exhausted = true
+	elif _stamina >= stamina_recover_threshold:
+		_exhausted = false
+
+	var wants_slow: bool = Input.is_action_pressed("slow_mo") and not _exhausted
+	
+	if wants_slow:
+		_stamina -= stamina_drain_rate * real_delta
+		_stamina  = maxf(_stamina, 0.0)
+		_slow_active = true
+	else:
+		_stamina += stamina_regen_rate * real_delta
+		_stamina  = minf(_stamina, stamina_max)
+		_slow_active = false
+
+	Engine.time_scale = slow_time_scale if _slow_active else 1.0
+
 func damage(dmg: float):
 	health -= dmg
 	if health <= 0:
@@ -257,3 +317,4 @@ func damage(dmg: float):
 
 func die():
 	is_dead = true
+	death_screen.show_death()

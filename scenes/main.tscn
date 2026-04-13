@@ -12,25 +12,25 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 
 [node name="Player" parent="." unique_id=1476040653 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0371476, 0)
-collision_layer = 2
-collision_mask = 15
 
-[node name="Skeleton3D" parent="Player/GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1476040653, 1198011592, 84867146) index="0" unique_id=2067680333]
-bones/2/position = Vector3(0, 42.270405, 0)
-bones/2/rotation = Quaternion(0.0014092206, -4.1180287e-05, -1.299125e-07, 0.9999991)
-bones/7/rotation = Quaternion(-0.27558187, 0.27451876, 0.22052468, 0.89446235)
-bones/29/rotation = Quaternion(0.45496303, 0.839545, 0.09378469, 0.28173962)
-bones/30/rotation = Quaternion(0.312323, 0.21691455, 0.22206387, 0.89782524)
-bones/31/rotation = Quaternion(-0.035505302, -0.19526252, -0.5146544, 0.8341121)
+[node name="Skeleton3D" parent="Player/GunViewport/SubViewport/Camera3D/arms/Sketchfab_model/e430f8f941c64cbea96a18e2036f08b4_fbx/Object_2/RootNode/Object_4" parent_id_path=PackedInt32Array(1476040653, 1015417000, 84867146) index="0" unique_id=2067680333]
+bones/2/position = Vector3(0, 42.49578, 0)
+bones/2/rotation = Quaternion(0.000279483, -0.00028261755, 3.2650223e-07, 1)
+bones/7/rotation = Quaternion(-0.2761484, 0.27438825, 0.22081654, 0.89425576)
+bones/29/rotation = Quaternion(0.45483288, 0.8394635, 0.09408981, 0.2820911)
+bones/30/rotation = Quaternion(0.31268957, 0.21719177, 0.222041, 0.89763623)
+bones/31/rotation = Quaternion(-0.03550749, -0.19578366, -0.51543796, 0.8335058)
 
 [node name="HittingEnemy" parent="." unique_id=622151178 instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0194035, -7.626026)
-collision_layer = 4
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1535471986]
 navigation_mesh = SubResource("NavigationMesh_tefeu")
 
 [node name="Map" parent="NavigationRegion3D" unique_id=2052675867 instance=ExtResource("3_sugp2")]
+
+[node name="Spawnpoint" type="Marker3D" parent="." unique_id=374702136]
+unique_name_in_owner = true
 
 [editable path="Player"]
 [editable path="Player/GunViewport/SubViewport/Camera3D/arms"]

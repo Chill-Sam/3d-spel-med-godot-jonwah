@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://5gqo1q6cwl8l"]
+
+[ext_resource type="Script" uid="uid://boek5eusqi2me" path="res://scripts/level_1.gd" id="1_4nkto"]
+[ext_resource type="PackedScene" uid="uid://qmcmpeoljo5x" path="res://scenes/level_1_map.scn" id="2_5xbjy"]
+[ext_resource type="PackedScene" uid="uid://bdkbxh8jlo1h6" path="res://scenes/player.tscn" id="2_rus8k"]
+[ext_resource type="PackedScene" uid="uid://coo6ln6or6emd" path="res://scenes/shooting_enemy.tscn" id="3_5xbjy"]
+[ext_resource type="PackedScene" uid="uid://cxpvjrsshkigb" path="res://scenes/hitting_enemy.tscn" id="3_rus8k"]
+[ext_resource type="PackedScene" uid="uid://d2sywraa74giw" path="res://scenes/finish_button.tscn" id="6_fcfvj"]
+[ext_resource type="PackedScene" uid="uid://b18wa1kg8pg7" path="res://scenes/main.tscn" id="7_pa8r4"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5xbjy"]
+vertices = PackedVector3Array(-3.3385735, -1.6180248, -68.603195, -1.8385735, -1.6180248, -68.603195, -1.8385735, -1.6180248, -69.853195, -3.3385735, 0.6319752, -73.353195, -3.3385735, -1.6180248, -72.165695, -2.8385735, -1.6180248, -72.18653, 1.9114265, -1.6180248, -69.853195, 1.9114265, -1.6180248, -68.603195, 3.4114265, -1.6180248, -68.603195, 3.4114265, 0.6319752, -73.353195, 2.9114265, -1.6180248, -72.18653, 3.4114265, -1.6180248, -72.165695, -5.0885735, 0.6319752, -78.853195, -5.0885735, 0.6319752, -73.603195, 5.1614265, 0.6319752, -78.853195, -0.8533802, -1.6180248, -71.6024, -0.85841656, 0.6319752, -73.085365, 2.1616077, 0.6319752, -73.11339, 0.68163204, -1.6180248, -71.591415, 5.1614265, 0.6319752, -73.603195, 6.6614265, 0.6319752, -78.603195, 6.6614265, 0.6319752, -76.103195, 8.661427, 0.6319752, -76.103195, 8.661427, 0.6319752, -78.603195, 1.9114265, -1.6180248, -67.103195, 3.4114265, -1.6180248, -64.603195, -1.8385735, -1.6180248, -67.103195, -3.3385735, -1.6180248, -64.603195, 0.41142654, -1.6180248, -63.353195, 0.16142654, -1.6180248, -64.353195, -0.088573456, -1.6180248, -64.353195, -0.33857346, -1.6180248, -63.353195, -1.8385735, -1.6180248, -56.103195, 1.9114265, -1.6180248, -56.103195, 1.9114265, -1.6180248, -63.353195, -1.8385735, -1.6180248, -63.353195, -1.8385735, -6.868025, -55.103195, -1.8385735, -6.868025, -47.103195, 1.9114265, -6.868025, -47.103195, 1.9114265, -6.868025, -55.103195, -1.8385735, -1.6180248, -46.103195, -1.8385735, -1.6180248, -36.353195, 1.9114265, -1.6180248, -36.353195, 1.9114265, -1.6180248, -46.103195, -1.8385735, -1.6180248, -30.853195, -1.8385735, -1.6180248, -24.103195, 1.9114265, -1.6180248, -24.103195, 1.9114265, -1.6180248, -30.853195, -1.8385735, -6.868025, -23.103195, -1.8385735, -6.868025, -20.103195, 1.9114265, -6.868025, -20.103195, 1.9114265, -6.868025, -23.103195, -1.8385735, -1.6180248, -19.103195, -1.8385735, -1.6180248, 9.396805, 1.9114265, -1.6180248, 9.396805, 1.9114265, -1.6180248, -19.103195)
+polygons = [PackedInt32Array(3, 5, 4), PackedInt32Array(4, 5, 2), PackedInt32Array(4, 2, 1), PackedInt32Array(4, 1, 0), PackedInt32Array(9, 11, 10), PackedInt32Array(10, 11, 6), PackedInt32Array(6, 11, 7), PackedInt32Array(7, 11, 8), PackedInt32Array(3, 13, 12), PackedInt32Array(12, 16, 3), PackedInt32Array(3, 16, 5), PackedInt32Array(5, 15, 2), PackedInt32Array(2, 18, 6), PackedInt32Array(6, 18, 10), PackedInt32Array(10, 17, 9), PackedInt32Array(9, 17, 14), PackedInt32Array(14, 16, 12), PackedInt32Array(16, 15, 5), PackedInt32Array(15, 18, 2), PackedInt32Array(18, 17, 10), PackedInt32Array(17, 16, 14), PackedInt32Array(16, 18, 15), PackedInt32Array(18, 16, 17), PackedInt32Array(14, 19, 9), PackedInt32Array(23, 22, 20), PackedInt32Array(20, 22, 21), PackedInt32Array(7, 8, 24), PackedInt32Array(24, 8, 25), PackedInt32Array(1, 26, 0), PackedInt32Array(0, 26, 27), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(31, 28, 33), PackedInt32Array(31, 33, 32), PackedInt32Array(28, 34, 33), PackedInt32Array(30, 27, 29), PackedInt32Array(29, 27, 26), PackedInt32Array(29, 26, 24), PackedInt32Array(29, 24, 25), PackedInt32Array(32, 35, 31), PackedInt32Array(39, 38, 36), PackedInt32Array(36, 38, 37), PackedInt32Array(43, 42, 40), PackedInt32Array(40, 42, 41), PackedInt32Array(47, 46, 44), PackedInt32Array(44, 46, 45), PackedInt32Array(51, 50, 48), PackedInt32Array(48, 50, 49), PackedInt32Array(55, 54, 52), PackedInt32Array(52, 54, 53)]
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 4294967287
+border_size = 0.4
+agent_radius = 0.4
+agent_max_climb = 3.0
+
+[node name="Level1" type="Node3D" unique_id=1233215573]
+script = ExtResource("1_4nkto")
+
+[node name="Player" parent="." unique_id=1476040653 groups=["player"] instance=ExtResource("2_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.968248, 0, 0)
+
+[node name="Markers" type="Node3D" parent="." unique_id=653512021]
+
+[node name="Spawnpoint" type="Marker3D" parent="Markers" unique_id=1467533800]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12188256, -0.9514942, 9.072553)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=451755611]
+navigation_mesh = SubResource("NavigationMesh_5xbjy")
+
+[node name="Level1_Map" parent="NavigationRegion3D" unique_id=449875251 instance=ExtResource("2_5xbjy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0005016327, 0.021476746, 0.046913147)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D8" parent="NavigationRegion3D/Level1_Map/Map/CSG/CSGCombiner3D" parent_id_path=PackedInt32Array(449875251, 675465525) index="9" unique_id=1902914760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1346436, 1.2864382, -77.36875)
+size = Vector3(0.6765866, 2.1586127, 1.71404)
+
+[node name="CSGBox3D9" parent="NavigationRegion3D/Level1_Map/Map/CSG/CSGCombiner3D" parent_id_path=PackedInt32Array(449875251, 675465525) index="10" unique_id=59936002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.550102, 1.9023558, -77.37918)
+size = Vector3(3.2342038, 3.3890588, 3.710635)
+
+[node name="Enemies" type="Node3D" parent="." unique_id=1961223043]
+
+[node name="ShootingEnemy" parent="Enemies" unique_id=399564706 groups=["enemy"] instance=ExtResource("3_5xbjy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4546739, 1.4793429, -78.368484)
+
+[node name="HittingEnemy2" parent="Enemies" unique_id=1448912817 groups=["enemy"] instance=ExtResource("3_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4160979, 1.3672631, -75.370834)
+
+[node name="HittingEnemy3" parent="Enemies" unique_id=1178557513 groups=["enemy"] instance=ExtResource("3_rus8k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6837325, 1.3672631, -75.370834)
+
+[node name="FinishButton" parent="." unique_id=1856646251 instance=ExtResource("6_fcfvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.383739, 0.7126627, -77.33209)
+next_scene = ExtResource("7_pa8r4")
+
+[editable path="NavigationRegion3D/Level1_Map"]
