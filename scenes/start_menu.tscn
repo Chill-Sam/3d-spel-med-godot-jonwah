@@ -27,18 +27,18 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/CenterContainer" unique_id=1401773522]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainPanel/CenterContainer/VBoxContainer" unique_id=1887437232]
+[node name="Title" type="Label" parent="MainPanel/CenterContainer/VBoxContainer" unique_id=1887437232]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "TEMPORARY NAME HOLDER :D"
+text = "White River Research Trials"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayButton" type="Button" parent="MainPanel/CenterContainer/VBoxContainer" unique_id=1374264094]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-text = "PLAY :D"
+text = "JOIN TRIALS"
 
 [node name="HelpButton" type="Button" parent="MainPanel/CenterContainer/VBoxContainer" unique_id=689121948]
 custom_minimum_size = Vector2(0, 50)
@@ -51,6 +51,7 @@ layout_mode = 2
 text = "EXIT D:"
 
 [node name="HelpOverlay" type="PanelContainer" parent="." unique_id=1220179650]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,3 +87,61 @@ vertical_alignment = 1
 [node name="CloseButton" type="Button" parent="HelpOverlay/CenterContainer/VBoxContainer" unique_id=1725067387]
 layout_mode = 2
 text = "CLOSE"
+
+[node name="LevelContainer" type="PanelContainer" parent="." unique_id=168195009]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelContainer" unique_id=1045740639]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelContainer/CenterContainer" unique_id=761164129]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="LevelContainer/CenterContainer/VBoxContainer" unique_id=1583084994]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "White River Research Trials"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelRow1" type="HBoxContainer" parent="LevelContainer/CenterContainer/VBoxContainer" unique_id=1096162371]
+layout_mode = 2
+
+[node name="PlayBtn1" type="Button" parent="LevelContainer/CenterContainer/VBoxContainer/LevelRow1" unique_id=209653236]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Trial 1"
+
+[node name="Time1" type="Label" parent="LevelContainer/CenterContainer/VBoxContainer/LevelRow1" unique_id=827570353]
+layout_mode = 2
+
+[node name="LevelRow2" type="HBoxContainer" parent="LevelContainer/CenterContainer/VBoxContainer" unique_id=1016275206]
+layout_mode = 2
+
+[node name="PlayBtn2" type="Button" parent="LevelContainer/CenterContainer/VBoxContainer/LevelRow2" unique_id=928078574]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Trial 2
+"
+
+[node name="Time2" type="Label" parent="LevelContainer/CenterContainer/VBoxContainer/LevelRow2" unique_id=1732972676]
+layout_mode = 2
+
+[node name="LevelRow3" type="HBoxContainer" parent="LevelContainer/CenterContainer/VBoxContainer" unique_id=603919732]
+layout_mode = 2
+
+[node name="PlayBtn3" type="Button" parent="LevelContainer/CenterContainer/VBoxContainer/LevelRow3" unique_id=71609357]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Trial 3
+"
+
+[node name="Time3" type="Label" parent="LevelContainer/CenterContainer/VBoxContainer/LevelRow3" unique_id=1231824770]
+layout_mode = 2

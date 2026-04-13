@@ -3,13 +3,10 @@ extends Enemy
 @onready var eyes = $Eyes
 @onready var anim_tree = $AnimationTree
 @onready var state: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
+@onready var damage_sound: AudioStreamPlayer3D = $DamageSound
 
 var is_chasing = false
 var is_dead = false
-
-func _ready() -> void:
-	super()
-
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -75,7 +72,11 @@ func die() -> void:
 	collision_mask &= ~2
 	is_dead = true
 	state.travel("Death")
-	
+
+func damage(dmg: float) -> void:
+	damage_sound.play()
+	super(dmg)
+
 func _face_player() -> void:
 	var look_target       := player.global_position
 	look_target.y          = global_position.y

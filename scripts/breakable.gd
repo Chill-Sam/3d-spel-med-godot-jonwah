@@ -1,5 +1,7 @@
 extends StaticBody3D
 
+@onready var shatter: AudioStreamPlayer3D = $Shatter
+
 var broken := false
 
 func _ready():
@@ -13,6 +15,7 @@ func _break(hit_position: Vector3):
 	broken = true
 	$VoronoiShatter/MeshInstance3D.hide()
 	$CollisionShape3D.disabled = true
+	shatter.play()
 
 	for shard in $VoronoiShatter/Fractured.get_children():
 		shard.show()

@@ -9,6 +9,7 @@ class_name ShootingEnemy extends Enemy
 
 @onready var anim_tree = $AnimationTree
 @onready var state: AnimationNodeStateMachinePlayback = anim_tree["parameters/playback"]
+@onready var damage_sound: AudioStreamPlayer3D = $DamageSound
 
 var _shoot_cooldown: float = 0.0
 var is_dead = false
@@ -112,3 +113,7 @@ func die() -> void:
 	remove_from_group("enemy")
 	is_dead = true
 	state.travel("Death")
+
+func damage(dmg: float) -> void:
+	damage_sound.play()
+	super(dmg)

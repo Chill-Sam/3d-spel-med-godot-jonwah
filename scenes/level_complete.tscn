@@ -64,3 +64,14 @@ custom_minimum_size = Vector2(200, 70)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Quit to Menu"
+
+[node name="Record" type="Label" parent="." unique_id=1254749211]
+visible = false
+layout_mode = 0
+offset_left = 243.0
+offset_top = 172.99998
+offset_right = 461.0
+offset_bottom = 217.99998
+rotation = -0.27925268
+theme_override_font_sizes/font_size = 32
+text = "NEW RECORD!"

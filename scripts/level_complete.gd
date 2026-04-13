@@ -1,6 +1,7 @@
 extends Control
 
 var _next_scene: PackedScene = null
+var _level_id: String = ""
 
 func _ready() -> void:
 	hide()
@@ -8,9 +9,17 @@ func _ready() -> void:
 	$CenterContainer/VBoxContainer/MarginContainer3/QuitButton.pressed.connect(_on_quit)
 
 
-func show_complete(time: float, next_scene: PackedScene) -> void:
+func show_complete(time: float, level_id: String, next_scene: PackedScene) -> void:
 	_next_scene = next_scene
+	_level_id = level_id
+	
+	var previous_best: float = SaveData.get_best_time(level_id)
+	var is_record: bool = previous_best < 0.0 or time < previous_best
+	
+	SaveData.submit_time(level_id, time)
 	$CenterContainer/VBoxContainer/MarginContainer/TimeLabel.text = "Time: " + _format(time)
+	$Record.visible = is_record
+	
 	get_tree().paused = true
 	Engine.time_scale  = 1.0
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dd40w8vwprpjf"]
+
+[ext_resource type="AudioStream" uid="uid://plnbe5englqa" path="res://assets/audio/background.mp3" id="1_tn5dr"]
+
+[node name="MusicManager" type="Node" unique_id=759133837]
+process_mode = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=957083860]
+stream = ExtResource("1_tn5dr")
+autoplay = true

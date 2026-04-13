@@ -22,6 +22,9 @@ extends CharacterBody3D
 @onready var death_screen = $CanvasLayer2/DeathScreen
 @onready var interact = $Camera3D/Interact
 @onready var speedrun_timer = $UI/TimerLabel
+@onready var gunshot: AudioStreamPlayer3D = $Gunshot
+@onready var damage_sound: AudioStreamPlayer3D = $Damage
+@onready var footstep: AudioStreamPlayer3D = $Footstep
 
 @export var slow_time_scale:       float = 0.4
 @export var stamina_max:           float = 5.0
@@ -51,6 +54,9 @@ var passive_regen = 2.5
 var _stamina:      float = stamina_max
 var _slow_active:  bool  = false
 var _exhausted:   bool  = false
+
+var footstep_timer := 0.0
+var footstep_interval := 0.3
 
 var current_tilt := 0.0
 var fov_tween: Tween
@@ -178,6 +184,8 @@ func _shoot() -> void:
 		gun_sm.start("Shoot")
 	else:
 		gun_sm.travel("Shoot")
+		
+	gunshot.play()
 
 	await get_tree().create_timer(fire_rate).timeout
 	_can_fire = true
@@ -282,6 +290,14 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+	if velocity.length() > 0.1:
+		footstep_timer -= delta
+		if footstep_timer <= 0.0 and (is_on_floor() or is_wallrunning) and not (is_crouching and hvel.length() >= 3.0):
+			play_footstep()
+			footstep_timer = footstep_interval
+	else:
+		footstep_timer = 0.0 
+	
 	_update_wall_tilt(delta)
 	_animate()
 	_set_fov_smooth(90 + 20 * velocity.length() / RUN_SPEED)
@@ -310,10 +326,17 @@ func _update_slow_mo(delta: float) -> void:
 	Engine.time_scale = slow_time_scale if _slow_active else 1.0
 
 func damage(dmg: float):
+	damage_sound.play()
 	health -= dmg
 	if health <= 0:
 		die()
 
+
+func play_footstep():
+	# pick a random sound so it doesn't sound robotic
+	#footstep_player.stream = footstep_sounds.pick_random()
+	footstep.pitch_scale = randf_range(0.9, 1.1)  # slight pitch variation
+	footstep.play()
 
 func die():
 	is_dead = true

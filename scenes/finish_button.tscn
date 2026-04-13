@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bkgxqwdop8day" path="res://assets/prototype/Dark/texture_04.png" id="1_f16im"]
 [ext_resource type="Script" uid="uid://cct1daqtaaerd" path="res://scripts/finish_button.gd" id="1_v386o"]
 [ext_resource type="Texture2D" uid="uid://cpelpseh4wvw5" path="res://assets/prototype/Red/texture_05.png" id="2_v386o"]
+[ext_resource type="AudioStream" uid="uid://cckptwq58tyh5" path="res://assets/audio/beep.mp3" id="4_b84qf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_b84qf"]
 radius = 0.25
@@ -26,6 +27,7 @@ bottom_radius = 0.2
 height = 0.1
 
 [node name="FinishButton" type="StaticBody3D" unique_id=1856646251]
+process_mode = 3
 script = ExtResource("1_v386o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1832851626]
@@ -38,3 +40,6 @@ mesh = SubResource("CylinderMesh_hnrbh")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1333546917]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52586526, 0)
 mesh = SubResource("CylinderMesh_0ukar")
+
+[node name="Success" type="AudioStreamPlayer3D" parent="." unique_id=1982446683]
+stream = ExtResource("4_b84qf")
