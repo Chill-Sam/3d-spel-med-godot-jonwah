@@ -5,9 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://bdkbxh8jlo1h6" path="res://scenes/player.tscn" id="2_rus8k"]
 [ext_resource type="PackedScene" uid="uid://coo6ln6or6emd" path="res://scenes/shooting_enemy.tscn" id="3_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://cxpvjrsshkigb" path="res://scenes/hitting_enemy.tscn" id="3_rus8k"]
-[ext_resource type="AudioStream" uid="uid://cb82lvn7n37ci" path="res://assets/audio/glass_break.mp3" id="4_15mv3"]
 [ext_resource type="PackedScene" uid="uid://d2sywraa74giw" path="res://scenes/finish_button.tscn" id="6_fcfvj"]
-[ext_resource type="PackedScene" uid="uid://b18wa1kg8pg7" path="res://scenes/main.tscn" id="7_pa8r4"]
+[ext_resource type="PackedScene" uid="uid://c3cuvsv5dsgja" path="res://scenes/level_2.tscn" id="7_pa8r4"]
+[ext_resource type="Script" uid="uid://b1cs6pslflyts" path="res://scripts/death_zone.gd" id="8_15mv3"]
+[ext_resource type="Texture2D" uid="uid://cga5gs5sto3s1" path="res://assets/prototype/Orange/texture_03.png" id="9_2y5yt"]
+[ext_resource type="Texture2D" uid="uid://d4b17jssp6vex" path="res://assets/prototype/Orange/texture_02.png" id="10_2os1m"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_5xbjy"]
 vertices = PackedVector3Array(-3.3385735, -1.6180248, -68.603195, -1.8385735, -1.6180248, -68.603195, -1.8385735, -1.6180248, -69.853195, -3.3385735, 0.6319752, -73.353195, -3.3385735, -1.6180248, -72.165695, -2.8385735, -1.6180248, -72.18653, 1.9114265, -1.6180248, -69.853195, 1.9114265, -1.6180248, -68.603195, 3.4114265, -1.6180248, -68.603195, 3.4114265, 0.6319752, -73.353195, 2.9114265, -1.6180248, -72.18653, 3.4114265, -1.6180248, -72.165695, -5.0885735, 0.6319752, -78.853195, -5.0885735, 0.6319752, -73.603195, 5.1614265, 0.6319752, -78.853195, -0.8533802, -1.6180248, -71.6024, -0.85841656, 0.6319752, -73.085365, 2.1616077, 0.6319752, -73.11339, 0.68163204, -1.6180248, -71.591415, 5.1614265, 0.6319752, -73.603195, 6.6614265, 0.6319752, -78.603195, 6.6614265, 0.6319752, -76.103195, 8.661427, 0.6319752, -76.103195, 8.661427, 0.6319752, -78.603195, 1.9114265, -1.6180248, -67.103195, 3.4114265, -1.6180248, -64.603195, -1.8385735, -1.6180248, -67.103195, -3.3385735, -1.6180248, -64.603195, 0.41142654, -1.6180248, -63.353195, 0.16142654, -1.6180248, -64.353195, -0.088573456, -1.6180248, -64.353195, -0.33857346, -1.6180248, -63.353195, -1.8385735, -1.6180248, -56.103195, 1.9114265, -1.6180248, -56.103195, 1.9114265, -1.6180248, -63.353195, -1.8385735, -1.6180248, -63.353195, -1.8385735, -6.868025, -55.103195, -1.8385735, -6.868025, -47.103195, 1.9114265, -6.868025, -47.103195, 1.9114265, -6.868025, -55.103195, -1.8385735, -1.6180248, -46.103195, -1.8385735, -1.6180248, -36.353195, 1.9114265, -1.6180248, -36.353195, 1.9114265, -1.6180248, -46.103195, -1.8385735, -1.6180248, -30.853195, -1.8385735, -1.6180248, -24.103195, 1.9114265, -1.6180248, -24.103195, 1.9114265, -1.6180248, -30.853195, -1.8385735, -6.868025, -23.103195, -1.8385735, -6.868025, -20.103195, 1.9114265, -6.868025, -20.103195, 1.9114265, -6.868025, -23.103195, -1.8385735, -1.6180248, -19.103195, -1.8385735, -1.6180248, 9.396805, 1.9114265, -1.6180248, 9.396805, 1.9114265, -1.6180248, -19.103195)
@@ -17,6 +19,19 @@ geometry_collision_mask = 4294967287
 border_size = 0.4
 agent_radius = 0.4
 agent_max_climb = 3.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15mv3"]
+size = Vector3(6, 1, 65)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go7sj"]
+albedo_texture = ExtResource("9_2y5yt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2y5yt"]
+albedo_texture = ExtResource("10_2os1m")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2aecg"]
+material = SubResource("StandardMaterial3D_2y5yt")
+size = Vector3(6, 1, 65)
 
 [node name="Level1" type="Node3D" unique_id=1233215573]
 script = ExtResource("1_4nkto")
@@ -45,23 +60,32 @@ size = Vector3(0.6765866, 2.1586127, 1.71404)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.550102, 1.9023558, -77.37918)
 size = Vector3(3.2342038, 3.3890588, 3.710635)
 
-[node name="Shatter" type="AudioStreamPlayer3D" parent="NavigationRegion3D/Level1_Map/Map/Props/Window" parent_id_path=PackedInt32Array(449875251, 1174065611) index="2" unique_id=94919148]
-stream = ExtResource("4_15mv3")
-
 [node name="Enemies" type="Node3D" parent="." unique_id=1961223043]
 
 [node name="ShootingEnemy" parent="Enemies" unique_id=399564706 groups=["enemy"] instance=ExtResource("3_5xbjy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4546739, 1.4793429, -78.368484)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.4546739, 1.4793429, -78.368484)
 
 [node name="HittingEnemy2" parent="Enemies" unique_id=1448912817 groups=["enemy"] instance=ExtResource("3_rus8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4160979, 1.3672631, -75.370834)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3.4160979, 1.3672631, -75.370834)
 
 [node name="HittingEnemy3" parent="Enemies" unique_id=1178557513 groups=["enemy"] instance=ExtResource("3_rus8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6837325, 1.3672631, -75.370834)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.6837325, 1.3672631, -75.370834)
 
 [node name="FinishButton" parent="." unique_id=1856646251 instance=ExtResource("6_fcfvj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.383739, 0.7126627, -77.33209)
 next_scene = ExtResource("7_pa8r4")
 level_id = "level_1"
+
+[node name="Area3D" type="Area3D" parent="." unique_id=190013813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.746645, -35.933502)
+collision_mask = 6
+script = ExtResource("8_15mv3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1773221157]
+shape = SubResource("BoxShape3D_15mv3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=1979806733]
+material_override = SubResource("StandardMaterial3D_go7sj")
+mesh = SubResource("BoxMesh_2aecg")
 
 [editable path="NavigationRegion3D/Level1_Map"]

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c8usxgd7nbnl8"]
 
 [ext_resource type="Script" uid="uid://ecn1061wt7yg" path="res://scripts/start_menu.gd" id="1_ouf4f"]
+[ext_resource type="Texture2D" uid="uid://bl6cy2e834tkg" path="res://assets/Background.png" id="2_thu50"]
 
 [node name="StartMenu" type="Control" unique_id=878930713]
 layout_mode = 3
@@ -11,7 +12,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ouf4f")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=893127062]
+[node name="Control" type="Control" parent="." unique_id=1445703784]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=893127062]
+position = Vector2(619.3333, 282)
+scale = Vector2(1.6666666, 1.6666666)
+texture = ExtResource("2_thu50")
 
 [node name="MainPanel" type="PanelContainer" parent="." unique_id=555613916]
 layout_mode = 1
